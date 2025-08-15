@@ -8,4 +8,5 @@ const memorySchema = new Schema({
     }, {
     timestamps: true
 });
+memorySchema.plugin(mongooseAggregatePaginate);
 export default mongoose.model("Memory", memorySchema);
