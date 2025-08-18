@@ -80,7 +80,7 @@ function Footer() {
             <h4 className="text-lg font-semibold mb-4 text-blue-400">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/login" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/signin" className="text-gray-400 hover:text-white transition-colors">
                   Login
                 </Link>
               </li>

@@ -57,10 +57,10 @@ function Header() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Link 
-                to="/login" 
+                to="/signin" 
                 className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
               >
-                Login
+                Sign In
               </Link>
             </motion.div>
             <motion.div
@@ -146,7 +146,7 @@ function Header() {
             background: 'linear-gradient(135deg, #e6f0ff 0%, #ffffff 100%)'
           }}>
             <Link 
-              to="/login" 
+              to="/signin" 
               className="block px-3 py-2 text-gray-700 hover:text-blue-500 transition-colors font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
