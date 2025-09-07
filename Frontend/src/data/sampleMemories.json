@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "title": "Beach Vacation",
+    "description": "Amazing sunset at Malibu beach with family. The waves were perfect and we had the best fish tacos ever!",
+    "date": "2024-07-15",
+    "type": "image",
+    "tags": ["vacation", "family", "beach", "sunset"],
+    "image": "/HomePictures/HomeLetters.jpg",
+    "favorite": true,
+    "location": "Malibu, CA"
+  },
+  {
+    "id": "2", 
+    "title": "Grandmother's Recipe",
+    "description": "Finally learned how to make grandma's famous apple pie. The secret ingredient was love (and a pinch of cinnamon).",
+    "date": "2024-06-20",
+    "type": "diary",
+    "tags": ["family", "cooking", "recipes", "memories"],
+    "image": "/HomePictures/HomeDiary.jpg",
+    "favorite": false,
+    "location": "Home"
+  },
+  {
+    "id": "3",
+    "title": "First Day at New Job",
+    "description": "Started my dream job today! Everyone was so welcoming and the office has an amazing view of the city.",
+    "date": "2024-08-01",
+    "type": "journal",
+    "tags": ["work", "career", "milestone", "achievement"],
+    "image": "/HomePictures/Journal.webp",
+    "favorite": true,
+    "location": "Downtown Office"
+  },
+  {
+    "id": "4",
+    "title": "Concert Night",
+    "description": "Went to see my favorite band live. The energy was incredible and they played all their classics!",
+    "date": "2024-05-30",
+    "type": "voice",
+    "tags": ["music", "concert", "friends", "entertainment"],
+    "image": "/HomePictures/HomeVoice.jpg",
+    "favorite": false,
+    "location": "Madison Square Garden"
+  },
+  {
+    "id": "5",
+    "title": "Weekend Hiking Trip",
+    "description": "Conquered the mountain trail with friends. The view from the top was absolutely breathtaking!",
+    "date": "2024-07-08",
+    "type": "image",
+    "tags": ["adventure", "hiking", "nature", "friends"],
+    "image": "/HomePictures/HomeLetters.jpg",
+    "favorite": true,
+    "location": "Rocky Mountain National Park"
+  },
+  {
+    "id": "6",
+    "title": "Birthday Surprise",
+    "description": "My friends threw me the most amazing surprise party. I was completely shocked and so grateful!",
+    "date": "2024-04-12",
+    "type": "video",  
+    "tags": ["birthday", "friends", "surprise", "celebration"],
+    "image": "/HomePictures/HomeVideo6.jpg",
+    "favorite": true,
+    "location": "Sarah's House"
+  },
+  {
+    "id": "7",
+    "title": "Learning Guitar",
+    "description": "Finally played my first complete song on guitar. It only took 100 attempts but who's counting?",
+    "date": "2024-03-25",
+    "type": "voice",
+    "tags": ["music", "learning", "hobby", "achievement"],
+    "image": "/HomePictures/HomeVoice.jpg",
+    "favorite": false,
+    "location": "Home Studio"
+  },
+  {
+    "id": "8",
+    "title": "Mom's Letter",
+    "description": "Found an old letter from mom in my college textbook. Reading her words of encouragement brought tears to my eyes.",
+    "date": "2024-02-14",
+    "type": "letters",
+    "tags": ["family", "love", "nostalgia", "emotional"],
+    "image": "/HomePictures/HomeLetters.jpg",
+    "favorite": true,
+    "location": "College Dorm"
+  },
+  {
+    "id": "9",
+    "title": "Morning Meditation",
+    "description": "Started a new meditation routine. Found a peaceful spot in the garden where I can clear my mind and focus.",
+    "date": "2024-08-10",
+    "type": "journal",
+    "tags": ["wellness", "meditation", "mindfulness", "peace"],
+    "image": "/HomePictures/Journal.webp",
+    "favorite": false,
+    "location": "Garden"
+  },
+  {
+    "id": "10",
+    "title": "Road Trip Adventures",
+    "description": "Epic cross-country road trip with college friends. We drove through 8 states and made countless memories along the way.",
+    "date": "2024-06-01",
+    "type": "video",
+    "tags": ["travel", "friends", "adventure", "road-trip"],
+    "image": "/HomePictures/HomeVideo.jpg",
+    "favorite": true,
+    "location": "Route 66"
+  }
+]

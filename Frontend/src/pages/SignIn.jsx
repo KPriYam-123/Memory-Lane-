@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function SignIn() {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -93,7 +95,28 @@ function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign in form submitted:', formData);
+    
+    // Trigger validation for all fields
+    validateField('email', formData.email);
+    validateField('password', formData.password);
+    
+    // Check if all fields are valid and not empty
+    const isFormValid = 
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
+      formData.password.length >= 6;
+    
+    if (isFormValid) {
+      console.log('Sign in form submitted:', formData);
+      
+      // Simulate successful login
+      // In a real app, you would make an API call here
+      alert('Welcome back to Memory Lane!');
+      
+      // Redirect to Home page
+      navigate('/Home');
+    } else {
+      alert('Please enter valid email and password.');
+    }
   };
 
   return (

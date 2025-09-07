@@ -79,6 +79,17 @@ function Header() {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Link 
+                to="/memories" 
+                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+              >
+                Memories
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Link 
                 to="/team" 
                 className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
               >
@@ -158,6 +169,13 @@ function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               About
+            </Link>
+            <Link 
+              to="/memories" 
+              className="block px-3 py-2 text-gray-700 hover:text-blue-500 transition-colors font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Memories
             </Link>
             <Link 
               to="/team" 

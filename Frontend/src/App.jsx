@@ -1,8 +1,11 @@
-import { useState } from 'react'
-iimport { BrowserRouter } from 'react-router-dom'
-iimport SignUp from './pages/SignUp.jsx'
-function App() {
-  
+import React from 'react'
 
+function App() {
   return (
-    <Browse
+    <div>
+      <h1>Memory Lane App</h1>
+    </div>
+  )
+}
+
+export default App

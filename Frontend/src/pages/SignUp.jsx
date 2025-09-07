@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function SignUp() {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -99,7 +101,31 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign up form submitted:', formData);
+    
+    // Trigger validation for all fields
+    validateField('username', formData.username);
+    validateField('email', formData.email);
+    validateField('password', formData.password);
+    
+    // Check if all fields are valid and not empty
+    const isFormValid = 
+      formData.username.length >= 3 && 
+      /^[a-zA-Z0-9_]+$/.test(formData.username) &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
+      formData.password.length >= 6;
+    
+    if (isFormValid) {
+      console.log('Sign up form submitted:', formData);
+      
+      // Simulate successful registration
+      // In a real app, you would make an API call here
+      alert('Account created successfully! Welcome to Memory Lane!');
+      
+      // Redirect to Home page
+      navigate('/Home');
+    } else {
+      alert('Please fill in all fields correctly before submitting.');
+    }
   };
 
   return (

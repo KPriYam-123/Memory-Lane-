@@ -12,7 +12,13 @@ import Tnc from './pages/Tnc.jsx'
 import SignIn from './pages/SignIn.jsx'
 import About from './pages/About.jsx'
 import Team from './pages/Team.jsx'
-import AddMemory from './pages/AddMemory.jsx'
+import Diary from './memories/Diary.jsx'
+import Blog from './memories/Blog.jsx'
+import Voice from './memories/Voice.jsx'
+import Letters from './memories/Letters.jsx'
+import Image from './memories/Image.jsx'
+import Video from './memories/Video.jsx'
+import Journal from './memories/Journal.jsx'
 import Memories from './pages/Memories.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 
@@ -54,20 +60,45 @@ const router = createBrowserRouter([
         element: <Team/>,
       },
       {
-        path: '/add-memory',
-        element: <AddMemory />,
-      },
-      {
         path: '/memories',
         element: <Memories />,
       },
       {
         path: '/calendar',
         element: <div className="p-8"><h1 className="text-3xl font-bold text-gray-900">Calendar</h1><p className="text-gray-600 mt-4">Calendar feature coming soon...</p></div>,
+      },
+      {
+        path: '/Home/diary',
+        element: <Diary />,
+      },
+      {
+        path: '/Home/blog',
+        element: <Blog />,
+      },
+      {
+        path: '/Home/voice',
+        element: <Voice />,
+      },
+      {
+        path: '/Home/letters',
+        element: <Letters />,
+      },
+      {
+        path: '/Home/image',
+        element: <Image />,
+      },
+      {
+        path: '/Home/video',
+        element: <Video />,
+      },
+      {
+        path: '/Home/journal',
+        element: <Journal />,
       }
     ],
   },
 ])
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <SidebarProvider>
