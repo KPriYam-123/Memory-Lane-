@@ -21,7 +21,6 @@ const userSchema = new Schema({
         trim : true
     },
     fullName : {
-        required : true,
         type : String,
         trim : true
     },
@@ -35,7 +34,7 @@ const userSchema = new Schema({
     },
     DOB:{
         type: Date,
-        required: true
+        
     },
     communities: [{ 
         type: mongoose.Schema.Types.ObjectId,
