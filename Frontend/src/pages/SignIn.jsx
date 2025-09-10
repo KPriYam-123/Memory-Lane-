@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function SignIn() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -19,6 +21,10 @@ function SignIn() {
     email: null, // null, 'valid', 'invalid'
     password: null
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,8 +99,10 @@ function SignIn() {
     return 'text-gray-500';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
     
     // Trigger validation for all fields
     validateField('email', formData.email);
@@ -105,17 +113,51 @@ function SignIn() {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
       formData.password.length >= 6;
     
-    if (isFormValid) {
-      console.log('Sign in form submitted:', formData);
+    if (!isFormValid) {
+      setError('Please enter valid email and password.');
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      console.log('Attempting to login user:', { ...formData, password: '[HIDDEN]' });
       
-      // Simulate successful login
-      // In a real app, you would make an API call here
-      alert('Welcome back to Memory Lane!');
+      // Use AuthContext login method
+      const response = await login({
+        email: formData.email,
+        password: formData.password
+      });
       
-      // Redirect to Home page
-      navigate('/Home');
-    } else {
-      alert('Please enter valid email and password.');
+      console.log('Login successful:', response);
+      setSuccess('Welcome back to Memory Lane!');
+      
+      // Small delay to show success message
+      setTimeout(() => {
+        navigate('/Home');
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Login failed:', error);
+      
+      // Provide user-friendly error messages
+      let errorMessage = 'Login failed. Please try again.';
+      
+      if (error.message.includes('User not found') || error.message.includes('No account found') || error.message.includes('404')) {
+        errorMessage = 'User does not exist. Please register first.';
+      } else if (error.message.includes('Password is incorrect') || error.message.includes('Incorrect password')) {
+        errorMessage = 'Incorrect password. Please check your password and try again.';
+      } else if (error.message.includes('Credential Incomplete')) {
+        errorMessage = 'Please fill in both email and password fields.';
+      } else if (error.message.includes('Network') || error.message.includes('fetch')) {
+        errorMessage = 'Connection error. Please check your internet connection and try again.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -293,21 +335,66 @@ function SignIn() {
             </Link>
           </motion.div>
 
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex items-center">
+                <span className="mr-2">⚠️</span>
+                <span>{error}</span>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Success Message */}
+          {success && (
+            <motion.div
+              className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex items-center">
+                <span className="mr-2">✅</span>
+                <span>{success}</span>
+              </div>
+            </motion.div>
+          )}
+
           {/* Submit Button */}
           <motion.button
             type="submit"
-            className="w-full py-2.5 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-lg transition-colors duration-200 shadow-lg mt-5 text-sm"
+            disabled={isLoading}
+            className={`w-full py-2.5 ${
+              isLoading 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-gray-700 hover:bg-gray-800'
+            } text-white font-medium rounded-lg transition-colors duration-200 shadow-lg mt-5 text-sm flex items-center justify-center`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
             whileHover={{ 
-              scale: 1.05, 
-              backgroundColor: "#374151",
-              boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.3)"
+              scale: isLoading ? 1 : 1.05, 
+              backgroundColor: isLoading ? "#9ca3af" : "#374151",
+              boxShadow: isLoading ? "none" : "0 10px 25px -3px rgba(0, 0, 0, 0.3)"
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: isLoading ? 1 : 0.95 }}
           >
-            Sign In
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Signing In...
+              </>
+            ) : (
+              'Sign In'
+            )}
           </motion.button>
         </motion.form>
 

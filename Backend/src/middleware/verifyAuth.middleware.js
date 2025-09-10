@@ -1,4 +1,4 @@
-import { asyncHandler } from "../utils/asyncHandler";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import jwt from "jsonwebtoken";
 
@@ -18,4 +18,4 @@ export const verifyAuth = asyncHandler(async (req, res, next) => {
     } catch (error) {
         throw new ApiError(401, "Unauthorized: Invalid token");
     }
-})
+})// Restart

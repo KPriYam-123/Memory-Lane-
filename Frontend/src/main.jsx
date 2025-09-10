@@ -21,6 +21,7 @@ import Video from './memories/Video.jsx'
 import Journal from './memories/Journal.jsx'
 import Memories from './pages/Memories.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -101,8 +102,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SidebarProvider>
-      <RouterProvider router={router} />
-    </SidebarProvider>
+    <AuthProvider>
+      <SidebarProvider>
+        <RouterProvider router={router} />
+      </SidebarProvider>
+    </AuthProvider>
   </StrictMode>,
 )

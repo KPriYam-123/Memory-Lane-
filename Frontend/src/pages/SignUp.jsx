@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function SignUp() {
   const navigate = useNavigate();
+  const { register } = useAuth();
   
   const [formData, setFormData] = useState({
     username: '',
@@ -22,6 +24,10 @@ function SignUp() {
     email: null,
     password: null
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,8 +105,10 @@ function SignUp() {
     return 'text-gray-500';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
     
     // Trigger validation for all fields
     validateField('username', formData.username);
@@ -114,17 +122,36 @@ function SignUp() {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
       formData.password.length >= 6;
     
-    if (isFormValid) {
-      console.log('Sign up form submitted:', formData);
+    if (!isFormValid) {
+      setError('Please fill in all fields correctly before submitting.');
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      console.log('Attempting to register user:', { ...formData, password: '[HIDDEN]' });
       
-      // Simulate successful registration
-      // In a real app, you would make an API call here
-      alert('Account created successfully! Welcome to Memory Lane!');
+      // Use AuthContext register method
+      const response = await register({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      });
       
-      // Redirect to Home page
-      navigate('/Home');
-    } else {
-      alert('Please fill in all fields correctly before submitting.');
+      console.log('Registration successful:', response);
+      setSuccess('Account created successfully! Welcome to Memory Lane!');
+      
+      // Small delay to show success message
+      setTimeout(() => {
+        navigate('/Home');
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Registration failed:', error);
+      setError(error.message || 'Registration failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -184,6 +211,28 @@ function SignUp() {
             Create an account
           </motion.p>
         </motion.div>
+
+        {/* Error Message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4"
+          >
+            <p className="text-sm font-medium">{error}</p>
+          </motion.div>
+        )}
+
+        {/* Success Message */}
+        {success && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4"
+          >
+            <p className="text-sm font-medium">{success}</p>
+          </motion.div>
+        )}
 
         {/* Form */}
         <motion.form 
@@ -337,18 +386,33 @@ function SignUp() {
           {/* Submit Button */}
           <motion.button
             type="submit"
-            className="w-full py-2.5 bg-gray-700 hover:bg-gray-800 text-white font-medium rounded-lg transition-colors duration-200 shadow-lg mt-5 text-sm"
+            disabled={isLoading}
+            className={`w-full py-2.5 font-medium rounded-lg transition-colors duration-200 shadow-lg mt-5 text-sm ${
+              isLoading 
+                ? 'bg-gray-400 cursor-not-allowed text-gray-200' 
+                : 'bg-gray-700 hover:bg-gray-800 text-white'
+            }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            whileHover={{ 
+            whileHover={!isLoading ? { 
               scale: 1.05, 
               backgroundColor: "#374151",
               boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.3)"
-            }}
-            whileTap={{ scale: 0.95 }}
+            } : {}}
+            whileTap={!isLoading ? { scale: 0.95 } : {}}
           >
-            Submit
+            {isLoading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Creating Account...
+              </span>
+            ) : (
+              'Submit'
+            )}
           </motion.button>
         </motion.form>
 

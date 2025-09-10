@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
+
 function Home() {
   const memoryTypes = [
     {
@@ -68,6 +69,8 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 p-4">
+      
+      
       {/* Header */}
       <motion.div 
         className="max-w-6xl mx-auto mb-8"

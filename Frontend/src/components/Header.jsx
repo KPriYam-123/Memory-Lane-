@@ -1,12 +1,24 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
@@ -41,61 +53,105 @@ function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Link 
-                to="/signUp" 
-                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
-              >
-                Sign Up
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Link 
-                to="/signin" 
-                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
-              >
-                Sign In
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Link 
-                to="/about" 
-                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
-              >
-                About
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Link 
-                to="/memories" 
-                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
-              >
-                Memories
-              </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Link 
-                to="/team" 
-                className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
-              >
-                Team
-              </Link>
-            </motion.div>
+            {isAuthenticated ? (
+              // Authenticated user navigation
+              <>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/Home" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Home
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/memories" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Memories
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/calendar" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Calendar
+                  </Link>
+                </motion.div>
+                <motion.div className="flex items-center space-x-4">
+                  <span className="text-gray-700 font-medium">
+                    Welcome, {user?.userName || 'User'}!
+                  </span>
+                  <motion.button
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Logout
+                  </motion.button>
+                </motion.div>
+              </>
+            ) : (
+              // Non-authenticated user navigation
+              <>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/signUp" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Sign Up
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/signin" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Sign In
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/about" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    About
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link 
+                    to="/team" 
+                    className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
+                  >
+                    Team
+                  </Link>
+                </motion.div>
+              </>
+            )}
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}

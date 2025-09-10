@@ -2,14 +2,15 @@ import {asyncHandler} from '../utils/asyncHandler.js';
 import {ApiError} from '../utils/ApiError.js'
 import User from '../models/user.model.js';
 import ApiResponse from '../utils/ApiResponse.js'
+
 const generateAccessTokenAndRefreshToken = async(userId)=>{
     try {
         const user = await User.findById(userId);
         if(!user){
             throw new ApiError(404, "User not found")
         }
-        const accessToken = await User.generateAccessToken();
-        const refreshToken = await User.generateRefreshToken();
+        const accessToken = await user.generateAccessToken(); // Fixed: call on user instance
+        const refreshToken = await user.generateRefreshToken(); // Fixed: call on user instance
         user.refreshToken = refreshToken;
         await user.save({validateBeforeSave: false});
         return {accessToken, refreshToken};
@@ -19,22 +20,22 @@ const generateAccessTokenAndRefreshToken = async(userId)=>{
 }   
 
 const registerUser = asyncHandler(async (req , res)=>{
-    const {userName, email, password} = req.body;
-    if(!userName.trim() || !email.trim() || !password.trim()){
+    const {username, email, password} = req.body;
+    if(!username?.trim() || !email?.trim() || !password?.trim()){
         throw new ApiError(400,"Credential Incomplete")
     }
     console.log(email);
     
     //check for existing user
     const existingUser = await User.findOne({ 
-        $or: [{ email }, { userName }]
+        $or: [{ email }, { userName: username }] // Map username to userName
     });
     if (existingUser) {
         throw new ApiError(409, 'User already exists');
     }
     //create user
     const user = await User.create({
-        userName,
+        userName: username, // Map username to userName for the model
         email,
         password
     });
@@ -48,27 +49,27 @@ const registerUser = asyncHandler(async (req , res)=>{
 });
 const loginUser = asyncHandler(async (req , res)=>{
     const {email, password} = req.body;
-    if(!email.trim() || !password.trim()){
+    if(!email?.trim() || !password?.trim()){
         throw new ApiError(400,"Credential Incomplete")
     }
-    const user =User.findOne( {
-        $or: [{ email }, { userName }]
-    })
+    const user = await User.findOne({ 
+        $or: [{ email }, { userName: email }] // Check both email and userName fields
+    });
     if(!user){ 
         throw new ApiError(404, "User not found")
     }
-    const isPasswordCorrect = await user.isPasswordCorrect(user.password);
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
     if(!isPasswordCorrect){
         throw new ApiError(401, "Password is incorrect")
     }
     const {accessToken, refreshToken} = await generateAccessTokenAndRefreshToken(user._id);
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     if(!loggedInUser){
-        throw new ApiError(500, "User not found after creation. Something went wrong!")
+        throw new ApiError(500, "User not found after login. Something went wrong!")
     }
     const options = {   
         httpOnly: true,
-        secure: true
+        secure: process.env.NODE_ENV === 'production'
     }
     res.cookie('refreshToken', refreshToken, options).cookie('accessToken', accessToken, options);
     return res.status(200).json(new ApiResponse(200, "User logged in successfully", {user: loggedInUser, accessToken, refreshToken}));
@@ -84,9 +85,10 @@ const logoutUser = asyncHandler(async (req , res)=>{
     await user.save({validateBeforeSave: false});
     const options = {   
         httpOnly: true,
-        secure: true
+        secure: process.env.NODE_ENV === 'production'
     }
     res.clearCookie('refreshToken', options).clearCookie('accessToken', options);
     return res.status(200).json(new ApiResponse(200, "User logged out successfully", null));
 })
+
 export {registerUser, loginUser, logoutUser};
