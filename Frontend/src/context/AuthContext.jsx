@@ -24,21 +24,45 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       setIsLoading(true);
-      // Since getCurrentUser doesn't exist, we'll check if there are auth cookies
-      // or if we have stored user data in localStorage
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
-        setIsAuthenticated(true);
-      } else {
-        setUser(null);
-        setIsAuthenticated(false);
+      
+      // Method 1: First try to verify auth with backend (checks cookies automatically)
+      try {
+        const response = await authAPI.getCurrentUser();
+        if (response && response.data) {
+          setUser(response.data);
+          setIsAuthenticated(true);
+          // Update localStorage with fresh user data
+          localStorage.setItem('user', JSON.stringify(response.data));
+          return;
+        }
+      } catch (authError) {
+        console.log('Cookie auth failed, checking localStorage fallback');
+        
+        // Method 2: Fallback to localStorage check
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          try {
+            const userData = JSON.parse(storedUser);
+            setUser(userData);
+            setIsAuthenticated(true);
+            return;
+          } catch (parseError) {
+            console.error('Failed to parse stored user data:', parseError);
+            localStorage.removeItem('user');
+          }
+        }
       }
-    } catch (error) {
-      // User is not authenticated
+      
+      // If both methods fail, user is not authenticated
       setUser(null);
       setIsAuthenticated(false);
+      localStorage.removeItem('user');
+      
+    } catch (error) {
+      console.error('Auth check error:', error);
+      setUser(null);
+      setIsAuthenticated(false);
+      localStorage.removeItem('user');
     } finally {
       setIsLoading(false);
     }

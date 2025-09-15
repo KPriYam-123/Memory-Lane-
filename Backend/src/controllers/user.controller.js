@@ -9,8 +9,8 @@ const generateAccessTokenAndRefreshToken = async(userId)=>{
         if(!user){
             throw new ApiError(404, "User not found")
         }
-        const accessToken = await user.generateAccessToken(); // Fixed: call on user instance
-        const refreshToken = await user.generateRefreshToken(); // Fixed: call on user instance
+        const accessToken = await user.generateAccessToken(); 
+        const refreshToken = await user.generateRefreshToken(); 
         user.refreshToken = refreshToken;
         await user.save({validateBeforeSave: false});
         return {accessToken, refreshToken};
@@ -91,4 +91,14 @@ const logoutUser = asyncHandler(async (req , res)=>{
     return res.status(200).json(new ApiResponse(200, "User logged out successfully", null));
 })
 
-export {registerUser, loginUser, logoutUser};
+const getCurrentUser = asyncHandler(async (req, res) => {
+    // This endpoint verifies if the user is authenticated via cookies
+    // req.user is populated by auth middleware if cookies are valid
+    const user = await User.findById(req.user._id).select("-password -refreshToken");
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+    return res.status(200).json(new ApiResponse(200, "User retrieved successfully", user));
+});
+
+export {registerUser, loginUser, logoutUser, getCurrentUser};

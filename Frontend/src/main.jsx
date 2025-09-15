@@ -12,6 +12,7 @@ import Tnc from './pages/Tnc.jsx'
 import SignIn from './pages/SignIn.jsx'
 import About from './pages/About.jsx'
 import Team from './pages/Team.jsx'
+import Profile from './pages/Profile.jsx'
 import Diary from './memories/Diary.jsx'
 import Blog from './memories/Blog.jsx'
 import Voice from './memories/Voice.jsx'
@@ -22,6 +23,7 @@ import Journal from './memories/Journal.jsx'
 import Memories from './pages/Memories.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { ProtectedRoute, PublicRoute } from './components/RouteProtection.jsx'
 
 const router = createBrowserRouter([
   {
@@ -30,15 +32,127 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <LandingPage />,
+        element: (
+          <PublicRoute>
+            <LandingPage />
+          </PublicRoute>
+        ),
       },
       {
         path: '/Home',
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/signup',
-        element: <SignUp />,
+        element: (
+          <PublicRoute>
+            <SignUp />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: '/signin',
+        element: (
+          <PublicRoute>
+            <SignIn />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: '/memories',
+        element: (
+          <ProtectedRoute>
+            <Memories />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/calendar',
+        element: (
+          <ProtectedRoute>
+            <div className="p-8">
+              <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
+              <p className="text-gray-600 mt-4">Calendar feature coming soon...</p>
+            </div>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/diary',
+        element: (
+          <ProtectedRoute>
+            <Diary />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/blog',
+        element: (
+          <ProtectedRoute>
+            <Blog />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/voice',
+        element: (
+          <ProtectedRoute>
+            <Voice />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/letters',
+        element: (
+          <ProtectedRoute>
+            <Letters />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/image',
+        element: (
+          <ProtectedRoute>
+            <Image />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/video',
+        element: (
+          <ProtectedRoute>
+            <Video />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/Home/journal',
+        element: (
+          <ProtectedRoute>
+            <Journal />
+          </ProtectedRoute>
+        ),
+      },
+      // Public routes that don't need authentication
+      {
+        path: '/about',
+        element: <About />,
+      },
+      {
+        path: '/team',
+        element: <Team />,
       },
       {
         path: '/changelog',
@@ -47,54 +161,6 @@ const router = createBrowserRouter([
       {
         path: '/terms',
         element: <Tnc />,
-      },
-      {
-        path: '/signin',
-        element: <SignIn />,
-      },
-      {
-        path: '/about',
-        element: <About />,
-      },
-      {
-        path: '/team',
-        element: <Team/>,
-      },
-      {
-        path: '/memories',
-        element: <Memories />,
-      },
-      {
-        path: '/calendar',
-        element: <div className="p-8"><h1 className="text-3xl font-bold text-gray-900">Calendar</h1><p className="text-gray-600 mt-4">Calendar feature coming soon...</p></div>,
-      },
-      {
-        path: '/Home/diary',
-        element: <Diary />,
-      },
-      {
-        path: '/Home/blog',
-        element: <Blog />,
-      },
-      {
-        path: '/Home/voice',
-        element: <Voice />,
-      },
-      {
-        path: '/Home/letters',
-        element: <Letters />,
-      },
-      {
-        path: '/Home/image',
-        element: <Image />,
-      },
-      {
-        path: '/Home/video',
-        element: <Video />,
-      },
-      {
-        path: '/Home/journal',
-        element: <Journal />,
       }
     ],
   },

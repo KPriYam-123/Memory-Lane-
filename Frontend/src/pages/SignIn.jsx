@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+  
+  // Get the intended destination or default to Home
+  const from = location.state?.from?.pathname || '/Home';
   
   const [formData, setFormData] = useState({
     email: '',
@@ -132,9 +136,9 @@ function SignIn() {
       console.log('Login successful:', response);
       setSuccess('Welcome back to Memory Lane!');
       
-      // Small delay to show success message
+      // Small delay to show success message, then redirect to intended location
       setTimeout(() => {
-        navigate('/Home');
+        navigate(from, { replace: true });
       }, 1500);
       
     } catch (error) {
