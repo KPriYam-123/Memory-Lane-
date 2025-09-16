@@ -23,6 +23,7 @@ import Journal from './memories/Journal.jsx'
 import Memories from './pages/Memories.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { Auth0Provider } from '@auth0/auth0-react';
 import { ProtectedRoute, PublicRoute } from './components/RouteProtection.jsx'
 
 const router = createBrowserRouter([
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
           <PublicRoute>
             <SignIn />
           </PublicRoute>
+        ),
+      },
+      {
+        path: '/google/callback',
+        element: (
+          <ProtectedRoute>
+            <GoogleAuth />
+          </ProtectedRoute>
         ),
       },
       {
@@ -168,10 +177,18 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <SidebarProvider>
-        <RouterProvider router={router} />
-      </SidebarProvider>
-    </AuthProvider>
+    <Auth0Provider
+    domain="dev-kv7uwnr71g71kjvp.us.auth0.com"
+    clientId="XngjR6t0dFvn0IVbKtMtymAjVr4kY87G"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
+      <AuthProvider>
+        <SidebarProvider>
+          <RouterProvider router={router} />
+        </SidebarProvider>
+      </AuthProvider>
+    </Auth0Provider>
   </StrictMode>,
 )
