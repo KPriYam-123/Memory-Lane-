@@ -22,6 +22,9 @@ app.use(cookieParser())
 
 //Routes import
 import userRouter from "./routes/user.routes.js"
+import oauthRouter from "./routes/oauth.routes.js"
+
 app.use('/api/users', userRouter)
+app.use('/api/oauth', oauthRouter)
 
 export {app}

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { authAPI } from '../utils/api.js';
 
 const AuthContext = createContext();
@@ -12,6 +13,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const { logout: auth0Logout, isAuthenticated: auth0IsAuthenticated } = useAuth0();
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -106,13 +108,51 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      // Logout from your backend
       await authAPI.logout();
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Backend logout error:', error);
     } finally {
+      // Clear ALL browser storage
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Clear all cookies aggressively
+      document.cookie.split(";").forEach(cookie => {
+        const name = cookie.split("=")[0].trim();
+        // Clear for multiple domains and paths
+        [
+          "",
+          ".auth0.com",
+          ".google.com", 
+          ".accounts.google.com",
+          ".googleapis.com",
+          window.location.hostname,
+          `.${window.location.hostname}`
+        ].forEach(domain => {
+          ["/", "/oauth/", "/auth/"].forEach(path => {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path}; domain=${domain}; secure; samesite=none`;
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path}; domain=${domain}`;
+          });
+        });
+      });
+      
+      // Clear local state
       setUser(null);
       setIsAuthenticated(false);
-      localStorage.removeItem('user');
+      
+      // Also logout from Auth0 if user was authenticated via OAuth with federated logout
+      if (auth0IsAuthenticated) {
+        auth0Logout({
+          logoutParams: {
+            returnTo: window.location.origin + '/signin',
+            federated: true // This forces logout from Google as well
+          }
+        });
+      } else {
+        // Force reload to clear any remaining session artifacts
+        window.location.href = '/signin';
+      }
     }
   };
 

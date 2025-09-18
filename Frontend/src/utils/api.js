@@ -80,6 +80,14 @@ export const authAPI = {
       method: 'GET',
     });
   },
+
+  // OAuth login
+  oauthLogin: async (userData) => {
+    return apiCall('/oauth/login', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
+  },
   
 
   // Refresh access token

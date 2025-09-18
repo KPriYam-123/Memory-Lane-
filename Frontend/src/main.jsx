@@ -25,6 +25,7 @@ import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { Auth0Provider } from '@auth0/auth0-react';
 import { ProtectedRoute, PublicRoute } from './components/RouteProtection.jsx'
+import Auth0Callback from './components/Auth0Callback.jsx'
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
             <SignIn />
           </PublicRoute>
         ),
+      },
+      {
+        path: '/auth0-callback',
+        element: <Auth0Callback />,
       },
       
       {
@@ -174,7 +179,7 @@ createRoot(document.getElementById('root')).render(
     domain="dev-kv7uwnr71g71kjvp.us.auth0.com"
     clientId="XngjR6t0dFvn0IVbKtMtymAjVr4kY87G"
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin + "/auth0-callback"
     }}
   >
       <AuthProvider>
