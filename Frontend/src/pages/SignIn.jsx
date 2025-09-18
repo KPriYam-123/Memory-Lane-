@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
+import SocialLoginButtons from '../components/SocialLoginButton.jsx';
 
 function SignIn() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
   
-  // Get the intended destination or default to Home
-  const from = location.state?.from?.pathname || '/Home';
+  // Always redirect to Home after login instead of the previous intended destination
+  const redirectAfterLogin = '/Home';
   
   const [formData, setFormData] = useState({
     email: '',
@@ -136,9 +137,9 @@ function SignIn() {
       console.log('Login successful:', response);
       setSuccess('Welcome back to Memory Lane!');
       
-      // Small delay to show success message, then redirect to intended location
+      // Small delay to show success message, then redirect to Home
       setTimeout(() => {
-        navigate(from, { replace: true });
+        navigate(redirectAfterLogin, { replace: true });
       }, 1500);
       
     } catch (error) {
@@ -422,7 +423,10 @@ function SignIn() {
                 Sign up here
               </Link>
             </motion.span>
+            
+            
           </p>
+          <SocialLoginButtons/>
         </motion.div>
       </motion.div>
     </div>

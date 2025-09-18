@@ -63,14 +63,7 @@ const router = createBrowserRouter([
           </PublicRoute>
         ),
       },
-      {
-        path: '/google/callback',
-        element: (
-          <ProtectedRoute>
-            <GoogleAuth />
-          </ProtectedRoute>
-        ),
-      },
+      
       {
         path: '/memories',
         element: (
