@@ -21,6 +21,7 @@ import Image from './memories/Image.jsx'
 import Video from './memories/Video.jsx'
 import Journal from './memories/Journal.jsx'
 import Memories from './pages/Memories.jsx'
+import AddMemory from './pages/AddMemory.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -35,121 +36,129 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: (
-          <PublicRoute>
-            <LandingPage />
-          </PublicRoute>
+            <PublicRoute>
+              <LandingPage />
+            </PublicRoute>
         ),
       },
       {
         path: '/Home',
         element: (
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/signup',
         element: (
-          <PublicRoute>
-            <SignUp />
-          </PublicRoute>
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
         ),
       },
       {
         path: '/signin',
         element: (
-          <PublicRoute>
-            <SignIn />
-          </PublicRoute>
+            <PublicRoute>
+              <SignIn />
+            </PublicRoute>
         ),
       },
       {
         path: '/auth0-callback',
         element: <Auth0Callback />,
       },
-      
+
       {
         path: '/memories',
         element: (
-          <ProtectedRoute>
-            <Memories />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Memories />
+            </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/add-memory',
+        element: (
+            <ProtectedRoute>
+              <AddMemory />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/profile',
         element: (
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/calendar',
         element: (
-          <ProtectedRoute>
-            <div className="p-8">
-              <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
-              <p className="text-gray-600 mt-4">Calendar feature coming soon...</p>
-            </div>
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <div className="p-8">
+                <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
+                <p className="text-gray-600 mt-4">Calendar feature coming soon...</p>
+              </div>
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/diary',
         element: (
-          <ProtectedRoute>
-            <Diary />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Diary />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/blog',
         element: (
-          <ProtectedRoute>
-            <Blog />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Blog />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/voice',
         element: (
-          <ProtectedRoute>
-            <Voice />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Voice />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/letters',
         element: (
-          <ProtectedRoute>
-            <Letters />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Letters />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/image',
         element: (
-          <ProtectedRoute>
-            <Image />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Image />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/video',
         element: (
-          <ProtectedRoute>
-            <Video />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Video />
+            </ProtectedRoute>
         ),
       },
       {
         path: '/Home/journal',
         element: (
-          <ProtectedRoute>
-            <Journal />
-          </ProtectedRoute>
+            <ProtectedRoute>
+              <Journal />
+            </ProtectedRoute>
         ),
       },
       // Public routes that don't need authentication
@@ -174,19 +183,19 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Auth0Provider
-    domain="dev-kv7uwnr71g71kjvp.us.auth0.com"
-    clientId="XngjR6t0dFvn0IVbKtMtymAjVr4kY87G"
-    authorizationParams={{
-      redirect_uri: window.location.origin + "/auth0-callback"
-    }}
-  >
-      <AuthProvider>
-        <SidebarProvider>
-          <RouterProvider router={router} />
-        </SidebarProvider>
-      </AuthProvider>
-    </Auth0Provider>
-  </StrictMode>,
+    <StrictMode>
+      <Auth0Provider
+          domain="dev-kv7uwnr71g71kjvp.us.auth0.com"
+          clientId="XngjR6t0dFvn0IVbKtMtymAjVr4kY87G"
+          authorizationParams={{
+            redirect_uri: window.location.origin + "/auth0-callback"
+          }}
+      >
+        <AuthProvider>
+          <SidebarProvider>
+            <RouterProvider router={router} />
+          </SidebarProvider>
+        </AuthProvider>
+      </Auth0Provider>
+    </StrictMode>,
 )

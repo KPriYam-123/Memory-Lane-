@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     try {
       setIsLoading(true);
-      
+
       // Method 1: First try to verify auth with backend (checks cookies automatically)
       try {
         const response = await authAPI.getCurrentUser();
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (authError) {
         console.log('Cookie auth failed, checking localStorage fallback');
-        
+
         // Method 2: Fallback to localStorage check
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -54,12 +54,12 @@ export const AuthProvider = ({ children }) => {
           }
         }
       }
-      
+
       // If both methods fail, user is not authenticated
       setUser(null);
       setIsAuthenticated(false);
       localStorage.removeItem('user');
-      
+
     } catch (error) {
       console.error('Auth check error:', error);
       setUser(null);
@@ -92,10 +92,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authAPI.register(userData);
       if (response && response.data) {
-        setUser(response.data.user);
+        const user = response.data.user || response.data;
+        setUser(user);
         setIsAuthenticated(true);
-        // Store user data in localStorage for persistence
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('user', JSON.stringify(user));
         return response;
       }
     } catch (error) {
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
       // Clear ALL browser storage
       localStorage.clear();
       sessionStorage.clear();
-      
+
       // Clear all cookies aggressively
       document.cookie.split(";").forEach(cookie => {
         const name = cookie.split("=")[0].trim();
@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }) => {
         [
           "",
           ".auth0.com",
-          ".google.com", 
+          ".google.com",
           ".accounts.google.com",
           ".googleapis.com",
           window.location.hostname,
@@ -136,11 +136,11 @@ export const AuthProvider = ({ children }) => {
           });
         });
       });
-      
+
       // Clear local state
       setUser(null);
       setIsAuthenticated(false);
-      
+
       // Also logout from Auth0 if user was authenticated via OAuth with federated logout
       if (auth0IsAuthenticated) {
         auth0Logout({
@@ -167,8 +167,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider value={value}>
+        {children}
+      </AuthContext.Provider>
   );
 };
