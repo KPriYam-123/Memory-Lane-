@@ -65,7 +65,7 @@ const oauthLogin = asyncHandler(async (req, res) => {
                 userName: name || email.split('@')[0], // Use name or email prefix as username
                 email,
                 password: Math.random().toString(36), // Generate random password (won't be used)
-                profilePicture: picture,
+                profilePic: picture,
                 authProvider: provider,
                 isOAuthUser: true
             });

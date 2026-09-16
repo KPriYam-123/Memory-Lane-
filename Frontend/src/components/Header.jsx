@@ -93,7 +93,7 @@ function Header() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Link 
-                    to="/signUp" 
+                    to="/signup" 
                     className="text-gray-700 hover:text-blue-500 transition-colors font-medium"
                   >
                     Sign Up

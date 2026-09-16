@@ -117,8 +117,8 @@ function Memories() {
               <h1 className="text-3xl font-bold text-gray-800 mb-1">Your Memories</h1>
               <p className="text-gray-500 text-sm">{pagination.totalDocs ?? memories.length} memories</p>
             </div>
-            <button onClick={() => navigate("/Home")}
-                    className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium shadow" onClick={() => navigate("/add-memory")}>
+            <button onClick={() => navigate("/add-memory")}
+                    className="mt-4 sm:mt-0 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium shadow">
               <Plus size={18} /> Add Memory
             </button>
           </motion.div>

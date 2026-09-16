@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Upload, X, Plus, Loader2, CheckCircle } from "lucide-react";
 import { memoryAPI } from "../utils/api.js";
 
@@ -8,8 +8,12 @@ const TYPES = ["Diary", "Blog", "Journal", "Letter", "Photo", "Video", "Audio"];
 
 function AddMemory() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const typeParam = searchParams.get("type");
+    const validatedType = TYPES.includes(typeParam) ? typeParam : "Diary";
+
     const [form, setForm] = useState({
-        title: "", description: "", type: "Diary", content: "",
+        title: "", description: "", type: validatedType, content: "",
         location: "", date: new Date().toISOString().split("T")[0], tags: []
     });
     const [tagInput, setTagInput] = useState("");

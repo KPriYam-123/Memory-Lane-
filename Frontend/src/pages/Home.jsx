@@ -13,7 +13,7 @@ function Home() {
       bgColor: 'bg-orange-50',
       textColor: 'text-orange-800',
       hoverColor: 'hover:bg-orange-100',
-      linkTo: '/Home/diary'
+      linkTo: '/add-memory?type=Diary'
     },
     {
       id: 'image',
@@ -23,7 +23,7 @@ function Home() {
       bgColor: 'bg-green-50',
       textColor: 'text-green-800',
       hoverColor: 'hover:bg-green-100',
-      linkTo: '/Home/image'
+      linkTo: '/add-memory?type=Photo'
     },
     {
       id: 'blog',
@@ -33,7 +33,7 @@ function Home() {
       bgColor: 'bg-amber-50',
       textColor: 'text-amber-800',
       hoverColor: 'hover:bg-amber-100',
-      linkTo: '/Home/blog'
+      linkTo: '/add-memory?type=Blog'
     },
     {
       id: 'letters',
@@ -43,7 +43,7 @@ function Home() {
       bgColor: 'bg-blue-50',
       textColor: 'text-blue-800',
       hoverColor: 'hover:bg-blue-100',
-      linkTo: '/Home/letters'
+      linkTo: '/add-memory?type=Letter'
     },
     {
       id: 'voice',
@@ -53,7 +53,7 @@ function Home() {
       bgColor: 'bg-purple-50',
       textColor: 'text-purple-800',
       hoverColor: 'hover:bg-purple-100',
-      linkTo: '/Home/voice'
+      linkTo: '/add-memory?type=Audio'
     },
     {
       id: 'journal',
@@ -63,7 +63,7 @@ function Home() {
       bgColor: 'bg-teal-50',
       textColor: 'text-teal-800',
       hoverColor: 'hover:bg-teal-100',
-      linkTo: '/Home/journal'
+      linkTo: '/add-memory?type=Journal'
     }
   ]
 
@@ -95,7 +95,7 @@ function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Link to="/Home/video">
+          <Link to="/add-memory?type=Video">
             <motion.div
               className="bg-gradient-to-r from-slate-300 to-slate-400 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
               whileHover={{ scale: 1.02 }}

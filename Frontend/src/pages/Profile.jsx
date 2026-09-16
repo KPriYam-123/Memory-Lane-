@@ -1,12 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { memoryAPI } from '../utils/api.js';
 
 function Profile() {
   const { user, logout, isLoading } = useAuth();
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [stats, setStats] = useState({
+    memoriesCount: 0,
+    photosCount: 0,
+    daysActive: 1
+  });
+
+  const createdAtDate = user?.createdAt ? new Date(user.createdAt) : new Date();
+  const diffTime = Math.abs(new Date() - createdAtDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [memoriesRes, photosRes] = await Promise.all([
+          memoryAPI.getAll({ limit: 1 }),
+          memoryAPI.getAll({ limit: 1, type: "Photo" })
+        ]);
+        setStats({
+          memoriesCount: memoriesRes.data?.totalDocs || 0,
+          photosCount: photosRes.data?.totalDocs || 0,
+          daysActive: diffDays
+        });
+      } catch (err) {
+        console.error("Failed to load profile stats:", err);
+      }
+    };
+    if (user) {
+      fetchStats();
+    }
+  }, [user, diffDays]);
 
   const handleLogout = async () => {
     try {
@@ -190,15 +221,15 @@ function Profile() {
           className="grid md:grid-cols-3 gap-6"
         >
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">0</div>
+            <div className="text-3xl font-bold text-blue-500 mb-2">{stats.memoriesCount}</div>
             <p className="text-gray-600">Memories Created</p>
           </div>
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-3xl font-bold text-green-500 mb-2">0</div>
+            <div className="text-3xl font-bold text-green-500 mb-2">{stats.photosCount}</div>
             <p className="text-gray-600">Photos Uploaded</p>
           </div>
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="text-3xl font-bold text-purple-500 mb-2">0</div>
+            <div className="text-3xl font-bold text-purple-500 mb-2">{stats.daysActive}</div>
             <p className="text-gray-600">Days Active</p>
           </div>
         </motion.div>

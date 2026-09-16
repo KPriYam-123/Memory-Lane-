@@ -4,23 +4,24 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
 export const verifyAuth = asyncHandler(async (req, res, next) => {
-    try {
-        const token = req.cookies?.accessToken || req.headers.authorization?.replace("Bearer ", "");
-        
-        if (!token) {
-            throw new ApiError(401, "Unauthorized: No token provided");
-        }
+    const token = req.cookies?.accessToken || req.headers.authorization?.replace("Bearer ", "");
 
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        const user = await User.findById(decodedToken._id).select("-password -refreshToken");
-        
-        if (!user) {
-            throw new ApiError(401, "Unauthorized: Invalid token");
-        }
-        
-        req.user = user;
-        next(); 
-    } catch (error) {
-        throw new ApiError(401, "Unauthorized: Invalid token");
+    if (!token) {
+        throw new ApiError(401, "No token provided");
     }
+
+    let decodedToken;
+    try {
+        decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    } catch (err) {
+        throw new ApiError(401, `Token verification failed: ${err.message}`);
+    }
+
+    const user = await User.findById(decodedToken._id).select("-password -refreshToken");
+    if (!user) {
+        throw new ApiError(401, "User not found");
+    }
+
+    req.user = user;
+    next();
 });

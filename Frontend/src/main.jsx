@@ -13,13 +13,9 @@ import SignIn from './pages/SignIn.jsx'
 import About from './pages/About.jsx'
 import Team from './pages/Team.jsx'
 import Profile from './pages/Profile.jsx'
-import Diary from './memories/Diary.jsx'
-import Blog from './memories/Blog.jsx'
-import Voice from './memories/Voice.jsx'
-import Letters from './memories/Letters.jsx'
-import Image from './memories/Image.jsx'
-import Video from './memories/Video.jsx'
-import Journal from './memories/Journal.jsx'
+import Privacy from './pages/Privacy.jsx'
+import Cookies from './pages/Cookies.jsx'
+import Contact from './pages/Contact.jsx'
 import Memories from './pages/Memories.jsx'
 import AddMemory from './pages/AddMemory.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
@@ -105,62 +101,6 @@ const router = createBrowserRouter([
             </ProtectedRoute>
         ),
       },
-      {
-        path: '/Home/diary',
-        element: (
-            <ProtectedRoute>
-              <Diary />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/blog',
-        element: (
-            <ProtectedRoute>
-              <Blog />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/voice',
-        element: (
-            <ProtectedRoute>
-              <Voice />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/letters',
-        element: (
-            <ProtectedRoute>
-              <Letters />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/image',
-        element: (
-            <ProtectedRoute>
-              <Image />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/video',
-        element: (
-            <ProtectedRoute>
-              <Video />
-            </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/Home/journal',
-        element: (
-            <ProtectedRoute>
-              <Journal />
-            </ProtectedRoute>
-        ),
-      },
       // Public routes that don't need authentication
       {
         path: '/about',
@@ -177,6 +117,18 @@ const router = createBrowserRouter([
       {
         path: '/terms',
         element: <Tnc />,
+      },
+      {
+        path: '/privacy',
+        element: <Privacy />,
+      },
+      {
+        path: '/cookies',
+        element: <Cookies />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       }
     ],
   },
