@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { BookOpen } from 'lucide-react';
 
 function About() {
   return (
@@ -10,7 +11,9 @@ function About() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center"
         >
-          <div className="text-5xl mb-4">📖</div>
+          <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+            <BookOpen className="w-10 h-10" />
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
             About Memory Lane
           </h1>

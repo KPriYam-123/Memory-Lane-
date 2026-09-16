@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { MailCheck } from 'lucide-react';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,7 +33,7 @@ function Contact() {
               animate={{ scale: 1, opacity: 1 }}
               className="text-center py-8"
             >
-              <div className="text-green-500 text-6xl mb-4">✉️</div>
+              <MailCheck className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">Message Sent!</h2>
               <p className="text-gray-600">
                 Thank you for contacting Memory Lane support. We will get back to you shortly!

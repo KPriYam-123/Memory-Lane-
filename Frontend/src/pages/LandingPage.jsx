@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { ArrowRight, Sparkles } from 'lucide-react'
 
 function LandingPage() {
   return (
@@ -22,15 +23,15 @@ function LandingPage() {
 
           {/* Hero Image */}
           <motion.div 
-            className="mb-8 mx-auto"
+            className="mb-8 mx-auto overflow-hidden rounded-2xl shadow-2xl border border-gray-200"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <img 
-              src="/LandingPageImage.jpg" 
-              alt="Beautiful landscape reflecting memories" 
-              className="w-full h-auto rounded-2xl shadow-lg"
+              src="/landing-hero.jpg" 
+              alt="Preserve cherished memories, photographs, and life stories" 
+              className="w-full max-h-[460px] object-cover hover:scale-102 transition-transform duration-500"
             />
           </motion.div>
 
@@ -56,14 +57,15 @@ function LandingPage() {
           >
             <Link to="/signup">
               <motion.button
-                className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3 rounded-lg text-lg shadow-lg transition-colors duration-200"
+                className="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white font-semibold px-8 py-3.5 rounded-lg text-lg shadow-lg transition-all duration-200"
                 whileHover={{ 
                   scale: 1.05,
                   boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.3)"
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Get Started
+                <span>Get Started</span>
+                <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
           </motion.div>

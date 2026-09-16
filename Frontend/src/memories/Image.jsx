@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Camera, Star, Trash2, Sparkles } from 'lucide-react'
 
 function Image() {
   const [imageData, setImageData] = useState({
@@ -95,7 +96,7 @@ function Image() {
   }
 
   const albums = ['Family', 'Travel', 'Events', 'Nature', 'Food', 'Friends', 'Pets', 'Art', 'Special Occasions', 'Other']
-  const moods = ['😊 Happy', '💕 Loving', '🎉 Celebratory', '😌 Peaceful', '🤩 Exciting', '💭 Nostalgic', '😂 Fun', '🥰 Heartwarming']
+  const moods = ['Happy', 'Loving', 'Celebratory', 'Peaceful', 'Exciting', 'Nostalgic', 'Fun', 'Heartwarming']
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-8">
@@ -110,11 +111,11 @@ function Image() {
           <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ scale: [1, 1.1, 1] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
               >
-                📸
+                <Camera className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Image Memory</h1>
@@ -188,18 +189,18 @@ function Image() {
                           <button
                             type="button"
                             onClick={() => setFeaturedImage(index)}
-                            className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition-colors"
+                            className="bg-amber-500 text-white p-2 rounded-full hover:bg-amber-600 transition-colors shadow"
                             title="Set as featured"
                           >
-                            ⭐
+                            <Star className="w-4 h-4 fill-current" />
                           </button>
                           <button
                             type="button"
                             onClick={() => removeImage(index)}
-                            className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                            className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors shadow"
                             title="Remove image"
                           >
-                            🗑️
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </div>
@@ -323,7 +324,7 @@ function Image() {
               </label>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-3">
                 <div className="flex items-start space-x-2">
-                  <span className="text-green-600">💫</span>
+                  <Sparkles className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
                   <div className="text-sm text-green-800">
                     <p className="font-medium">Capture the full memory:</p>
                     <p className="text-xs mt-1">Share the story, emotions, and context that make this moment special.</p>

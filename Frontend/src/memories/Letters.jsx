@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Mail, Lightbulb } from 'lucide-react'
 
 function Letters() {
   const [letterData, setLetterData] = useState({
@@ -36,7 +37,7 @@ function Letters() {
   }
 
   const letterTypes = ['Love Letter', 'Thank You Note', 'Apology Letter', 'Congratulations', 'Personal Letter', 'Invitation', 'Family Letter', 'Other']
-  const moods = ['💕 Loving', '🙏 Grateful', '😊 Happy', '😢 Emotional', '🎉 Celebratory', '💭 Thoughtful', '📝 Formal', '🤗 Friendly']
+  const moods = ['Loving', 'Grateful', 'Happy', 'Emotional', 'Celebratory', 'Thoughtful', 'Formal', 'Friendly']
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 py-8">
@@ -51,11 +52,11 @@ function Letters() {
           <div className="bg-gradient-to-r from-blue-500 to-cyan-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ rotate: [0, 15, -15, 0] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
               >
-                💌
+                <Mail className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Write a Letter</h1>
@@ -176,7 +177,7 @@ function Letters() {
               </label>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-3">
                 <div className="flex items-start space-x-2">
-                  <span className="text-amber-600">💡</span>
+                  <Lightbulb className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                   <div className="text-sm text-amber-800">
                     <p className="font-medium">Letter Writing Tips:</p>
                     <ul className="mt-1 space-y-1 text-xs">

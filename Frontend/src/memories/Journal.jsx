@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { BookText, Sparkles, Lock, Star } from 'lucide-react'
 
 function Journal() {
   const [journalData, setJournalData] = useState({
@@ -33,8 +34,8 @@ function Journal() {
   }
 
   const categories = ['Personal', 'Work', 'Travel', 'Health & Fitness', 'Relationships', 'Goals', 'Learning', 'Creativity', 'Spirituality', 'Other']
-  const moods = ['😊 Happy', '😔 Sad', '😌 Peaceful', '😤 Frustrated', '😍 Excited', '😰 Anxious', '💭 Thoughtful', '😴 Tired', '🥰 Grateful', '😤 Angry']
-  const weatherOptions = ['☀️ Sunny', '⛅ Partly Cloudy', '☁️ Cloudy', '🌧️ Rainy', '⛈️ Stormy', '❄️ Snowy', '🌫️ Foggy', '🌈 Rainbow']
+  const moods = ['Happy', 'Sad', 'Peaceful', 'Frustrated', 'Excited', 'Anxious', 'Thoughtful', 'Tired', 'Grateful', 'Angry']
+  const weatherOptions = ['Sunny', 'Partly Cloudy', 'Cloudy', 'Rainy', 'Stormy', 'Snowy', 'Foggy', 'Rainbow']
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100 py-8">
@@ -49,11 +50,11 @@ function Journal() {
           <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ rotate: [0, 10, -10, 0] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ rotate: [0, 8, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, repeatDelay: 3 }}
               >
-                📔
+                <BookText className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Personal Journal</h1>
@@ -174,7 +175,7 @@ function Journal() {
               </label>
               <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 mb-3">
                 <div className="flex items-start space-x-2">
-                  <span className="text-teal-600">💫</span>
+                  <Sparkles className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
                   <div className="text-sm text-teal-800">
                     <p className="font-medium">Journal Writing Prompts:</p>
                     <ul className="mt-1 space-y-1 text-xs">
@@ -276,7 +277,9 @@ function Journal() {
                   onChange={handleInputChange}
                   className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
                 />
-                <span className="text-sm text-gray-700">🔒 Keep this entry private</span>
+                <span className="text-sm text-gray-700 inline-flex items-center gap-1.5">
+                  <Lock className="w-4 h-4 text-gray-500" /> Keep this entry private
+                </span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input
@@ -286,7 +289,9 @@ function Journal() {
                   onChange={handleInputChange}
                   className="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
                 />
-                <span className="text-sm text-gray-700">⭐ Mark as favorite</span>
+                <span className="text-sm text-gray-700 inline-flex items-center gap-1.5">
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-400" /> Mark as favorite
+                </span>
               </label>
             </div>
 

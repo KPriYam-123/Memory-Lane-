@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Camera, Menu, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 
 function Header() {
@@ -29,13 +30,13 @@ function Header() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <motion.span 
-              className="text-2xl"
-              animate={{ rotate: [0, 10, -10, 0] }}
+            <motion.div 
+              className="p-1.5 bg-blue-50 text-blue-500 rounded-lg shadow-sm"
+              animate={{ rotate: [0, 8, -8, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
             >
-              📸
-            </motion.span>
+              <Camera className="w-6 h-6" />
+            </motion.div>
             <Link to="/" className="text-2xl font-bold text-blue-500 tracking-wide hover:text-blue-600 transition-colors">
               Mem-Lane
             </Link>
@@ -162,21 +163,11 @@ function Header() {
           <div className="md:hidden">
             <motion.button
               onClick={toggleMenu}
-              className="text-gray-700 hover:text-blue-500 focus:outline-none focus:text-blue-500"
+              className="text-gray-700 hover:text-blue-500 focus:outline-none focus:text-blue-500 p-1 rounded-lg"
               whileTap={{ scale: 0.95 }}
+              aria-label="Toggle menu"
             >
-              <svg 
-                className="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </motion.button>
           </div>
         </div>

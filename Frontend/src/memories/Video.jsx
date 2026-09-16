@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { Film, Target } from 'lucide-react'
 
 function Video() {
   const [videoData, setVideoData] = useState({
@@ -92,7 +93,7 @@ function Video() {
   }
 
   const categories = ['Family', 'Travel', 'Events', 'Tutorial', 'Vlog', 'Entertainment', 'Education', 'Memories', 'Celebration', 'Other']
-  const moods = ['😊 Happy', '🎉 Exciting', '💕 Loving', '😌 Peaceful', '🤩 Amazing', '💭 Nostalgic', '😂 Funny', '🥰 Heartwarming']
+  const moods = ['Happy', 'Exciting', 'Loving', 'Peaceful', 'Amazing', 'Nostalgic', 'Funny', 'Heartwarming']
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-100 py-8">
@@ -107,11 +108,11 @@ function Video() {
           <div className="bg-gradient-to-r from-red-500 to-pink-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ scale: [1, 1.2, 1] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
               >
-                🎬
+                <Film className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Video Memory</h1>
@@ -326,7 +327,7 @@ function Video() {
               </label>
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-3">
                 <div className="flex items-start space-x-2">
-                  <span className="text-red-600">🎯</span>
+                  <Target className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                   <div className="text-sm text-red-800">
                     <p className="font-medium">Capture the complete memory:</p>
                     <p className="text-xs mt-1">Share the context, emotions, and significance that make this video special.</p>

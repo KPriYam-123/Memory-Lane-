@@ -6,7 +6,7 @@
     "date": "2024-07-15",
     "type": "image",
     "tags": ["vacation", "family", "beach", "sunset"],
-    "image": "/HomePictures/HomeLetters.jpg",
+    "image": "/HomePictures/HomePhoto.jpg",
     "favorite": true,
     "location": "Malibu, CA"
   },
@@ -28,7 +28,7 @@
     "date": "2024-08-01",
     "type": "journal",
     "tags": ["work", "career", "milestone", "achievement"],
-    "image": "/HomePictures/Journal.webp",
+    "image": "/HomePictures/Journal.jpg",
     "favorite": true,
     "location": "Downtown Office"
   },
@@ -50,7 +50,7 @@
     "date": "2024-07-08",
     "type": "image",
     "tags": ["adventure", "hiking", "nature", "friends"],
-    "image": "/HomePictures/HomeLetters.jpg",
+    "image": "/HomePictures/HomePhoto.jpg",
     "favorite": true,
     "location": "Rocky Mountain National Park"
   },
@@ -61,7 +61,7 @@
     "date": "2024-04-12",
     "type": "video",  
     "tags": ["birthday", "friends", "surprise", "celebration"],
-    "image": "/HomePictures/HomeVideo6.jpg",
+    "image": "/HomePictures/HomeVideo.jpg",
     "favorite": true,
     "location": "Sarah's House"
   },
@@ -94,7 +94,7 @@
     "date": "2024-08-10",
     "type": "journal",
     "tags": ["wellness", "meditation", "mindfulness", "peace"],
-    "image": "/HomePictures/Journal.webp",
+    "image": "/HomePictures/Journal.jpg",
     "favorite": false,
     "location": "Garden"
   },

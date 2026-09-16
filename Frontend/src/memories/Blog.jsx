@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { PenTool } from 'lucide-react'
 
 function Blog() {
   const [blogData, setBlogData] = useState({
@@ -49,11 +50,11 @@ function Blog() {
           <div className="bg-gradient-to-r from-amber-500 to-yellow-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
                 animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
               >
-                ✍️
+                <PenTool className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Write Your Blog</h1>

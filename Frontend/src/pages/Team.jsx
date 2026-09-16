@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Code2 } from 'lucide-react';
 
 function Team() {
   const members = [
-    { name: 'Priyam', role: 'Lead Developer & Architect', avatar: '💻' }
+    { name: 'Priyam', role: 'Lead Developer & Architect', icon: Code2 }
   ];
 
   return (
@@ -22,20 +23,25 @@ function Team() {
           </p>
 
           <div className="flex justify-center">
-            {members.map((member, index) => (
-              <motion.div
-                key={member.name}
-                className="bg-gray-50 border border-gray-100 rounded-xl p-6 text-center hover:shadow-md transition-shadow max-w-sm w-full"
-                whileHover={{ y: -4 }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="text-4xl mb-4">{member.avatar}</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
-                <p className="text-blue-500 font-medium text-sm">{member.role}</p>
-              </motion.div>
-            ))}
+            {members.map((member, index) => {
+              const IconComponent = member.icon;
+              return (
+                <motion.div
+                  key={member.name}
+                  className="bg-gray-50 border border-gray-100 rounded-2xl p-8 text-center hover:shadow-lg transition-all max-w-sm w-full"
+                  whileHover={{ y: -4 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <IconComponent className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
+                  <p className="text-blue-600 font-medium text-sm">{member.role}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

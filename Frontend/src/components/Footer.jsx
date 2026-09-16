@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Camera, Heart } from 'lucide-react'
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,7 +23,9 @@ function Footer() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <span className="text-2xl">📸</span>
+              <div className="p-1.5 bg-blue-900/40 text-blue-400 rounded-lg">
+                <Camera className="w-6 h-6" />
+              </div>
               <h3 className="text-2xl font-bold text-blue-400">Mem-Lane</h3>
             </motion.div>
             <p className="text-gray-400 mb-4 max-w-md">
@@ -138,8 +141,8 @@ function Footer() {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-400 text-sm">
-            © {currentYear} Mem-Lane. All rights reserved. Made with ❤️ for preserving memories.
+          <p className="text-gray-400 text-sm flex items-center justify-center flex-wrap">
+            © {currentYear} Mem-Lane. All rights reserved. Made with <Heart className="w-4 h-4 text-red-500 fill-red-500 inline mx-1.5" /> for preserving memories.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { BookOpen } from 'lucide-react'
 
 function Diary() {
   const [diaryData, setDiaryData] = useState({
@@ -26,8 +27,8 @@ function Diary() {
     alert('Diary entry saved successfully!')
   }
 
-  const moods = ['😊 Happy', '😢 Sad', '😍 Excited', '😌 Peaceful', '😤 Frustrated', '🤔 Thoughtful', '😴 Tired', '😎 Confident']
-  const weatherOptions = ['☀️ Sunny', '☁️ Cloudy', '🌧️ Rainy', '⛈️ Stormy', '❄️ Snowy', '🌫️ Foggy', '🌈 Rainbow']
+  const moods = ['Happy', 'Sad', 'Excited', 'Peaceful', 'Frustrated', 'Thoughtful', 'Tired', 'Confident']
+  const weatherOptions = ['Sunny', 'Cloudy', 'Rainy', 'Stormy', 'Snowy', 'Foggy', 'Rainbow']
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-100 py-8">
@@ -42,11 +43,11 @@ function Diary() {
           <div className="bg-gradient-to-r from-orange-500 to-amber-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ rotate: [0, 10, -10, 0] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ rotate: [0, 8, -8, 0] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
               >
-                📔
+                <BookOpen className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">My Diary</h1>

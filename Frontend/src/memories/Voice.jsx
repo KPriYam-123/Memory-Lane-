@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { Mic, Square } from 'lucide-react'
 
 function Voice() {
   const [voiceData, setVoiceData] = useState({
@@ -108,11 +109,11 @@ function Voice() {
           <div className="bg-gradient-to-r from-purple-500 to-indigo-600 px-6 py-8">
             <div className="flex items-center">
               <motion.div
-                className="text-4xl mr-4"
-                animate={{ scale: [1, 1.1, 1] }}
+                className="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl text-white mr-4 shadow-sm"
+                animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
               >
-                🎤
+                <Mic className="w-8 h-8" />
               </motion.div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Voice Memory</h1>
@@ -156,8 +157,9 @@ function Voice() {
                   whileTap={{ scale: 0.9 }}
                   animate={isRecording ? { scale: [1, 1.1, 1] } : {}}
                   transition={isRecording ? { duration: 1, repeat: Infinity } : {}}
+                  aria-label={isRecording ? 'Stop recording' : 'Start recording'}
                 >
-                  {isRecording ? '⏹️' : '🎤'}
+                  {isRecording ? <Square className="w-8 h-8 fill-current" /> : <Mic className="w-8 h-8" />}
                 </motion.button>
                 
                 {isRecording && (

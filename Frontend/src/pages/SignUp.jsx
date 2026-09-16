@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Camera, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function SignUp() {
@@ -159,18 +160,18 @@ function SignUp() {
     <div 
       className="min-h-screen flex items-center relative"
       style={{
-        backgroundImage: `url('/signUpBackgroung.png')`,
+        backgroundImage: `url('/memory-auth-bg.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}
     >
       {/* Semi-transparent overlay */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
       
       {/* Main sign-up card - positioned to the left */}
       <motion.div 
-        className="relative z-10 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 w-full max-w-[340px] ml-8 md:ml-16 lg:ml-24 border border-white/50"
+        className="relative z-10 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-6 w-full max-w-[340px] ml-8 md:ml-16 lg:ml-24 border border-white/60"
         initial={{ opacity: 0, x: -100, scale: 0.9 }}
         animate={{ opacity: 1, x: 0, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -188,13 +189,13 @@ function SignUp() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <motion.span 
-              className="text-xl mr-2"
-              animate={{ rotate: [0, 10, -10, 0] }}
+            <motion.div 
+              className="p-1.5 bg-blue-50 text-blue-500 rounded-lg mr-2"
+              animate={{ rotate: [0, 8, -8, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
             >
-              📸
-            </motion.span>
+              <Camera className="w-5 h-5" />
+            </motion.div>
             <motion.h1 
               className="text-2xl font-bold text-blue-500 tracking-wide"
               whileHover={{ color: "#3b82f6" }}
@@ -217,8 +218,9 @@ function SignUp() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4"
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 flex items-center"
           >
+            <AlertCircle className="w-4 h-4 mr-2 text-red-600 shrink-0" />
             <p className="text-sm font-medium">{error}</p>
           </motion.div>
         )}
@@ -228,8 +230,9 @@ function SignUp() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4"
+            className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4 flex items-center"
           >
+            <CheckCircle2 className="w-4 h-4 mr-2 text-green-600 shrink-0" />
             <p className="text-sm font-medium">{success}</p>
           </motion.div>
         )}
